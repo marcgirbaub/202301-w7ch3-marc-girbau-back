@@ -32,6 +32,7 @@ const loginUser = async (
 
   const jwtPayload = {
     sub: user?._id,
+    username: user.username,
   };
 
   const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!);
