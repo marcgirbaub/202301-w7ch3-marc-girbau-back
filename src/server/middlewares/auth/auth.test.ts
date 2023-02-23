@@ -1,6 +1,6 @@
 import { type NextFunction, type Response } from "express";
-import { CustomError } from "../../CustomError/CustomError";
-import { type CustomRequest } from "../../types";
+import { CustomError } from "../../../CustomError/CustomError";
+import { type CustomRequest } from "../../../types";
 import auth from "./auth";
 
 const next = jest.fn() as NextFunction;

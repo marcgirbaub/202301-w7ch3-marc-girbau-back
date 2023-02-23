@@ -1,9 +1,12 @@
 import morgan from "morgan";
 import express from "express";
 import cors from "cors";
-import { generalError, notFoundError } from "./middlewares/errorMiddlewares.js";
-import { robotsRouter } from "./routers/robotsRouters.js";
-import usersRouter from "./routers/usersRouters.js";
+import {
+  generalError,
+  notFoundError,
+} from "./middlewares/errorMiddlewares/errorMiddlewares.js";
+import { robotsRouter } from "./routers/robotsRouters/robotsRouters.js";
+import usersRouter from "./routers/usersRouters/usersRouters.js";
 
 export const app = express();
 

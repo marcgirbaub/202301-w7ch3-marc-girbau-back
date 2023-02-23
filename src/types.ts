@@ -26,3 +26,8 @@ export interface CustomJwtPayload extends JwtPayload {
   username: string;
   sub: string;
 }
+
+export interface UserStructure extends UserCredentials {
+  email: string;
+  avatar: string;
+}
