@@ -1,4 +1,5 @@
 import multer from "multer";
+import { uuid } from "uuidv4";
 import { validate } from "express-validation";
 import { Router } from "express";
 import {
@@ -10,11 +11,12 @@ import registerSchema from "../../schemas/registerSchemas.js";
 const usersRouter = Router();
 
 const storage = multer.diskStorage({
-  destination(req, file, callback) {
-    callback(null, "uploads/");
-  },
+  destination: "uploads/",
   filename(req, file, callback) {
-    callback(null, file.originalname + ".jpeg");
+    const suffix = uuid();
+    const extension =
+      file.mimetype.split("/")[file.mimetype.split("/").length - 1];
+    callback(null, `${file.originalname.split(".")[0]}-${suffix}.${extension}`);
   },
 });
 

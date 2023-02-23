@@ -36,6 +36,9 @@ describe("Given a POST `/users/login` endpoint", () => {
 
   describe("When it receives a request with username `Marc` and password `marc1234`", () => {
     test("Then it should respond with a status 200 and with an object in its body with a property `token`", async () => {
+      jwt.sign = jest.fn().mockImplementation(() => ({
+        token: "asdfefrgsfdg32234523",
+      }));
       const expectedStatus = 200;
 
       const user = await User.create(mockUser);
