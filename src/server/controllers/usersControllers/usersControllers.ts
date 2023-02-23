@@ -63,6 +63,11 @@ export const createUser = async (
 
     res.status(201).json({ message: "The user has been created" });
   } catch (error) {
-    next(error);
+    const customError = new CustomError(
+      "There was a problem registering the user",
+      400,
+      "Something went wrong"
+    );
+    next(customError);
   }
 };
