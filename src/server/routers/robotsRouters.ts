@@ -12,4 +12,4 @@ export const robotsRouter = Router();
 robotsRouter.get("/", getRobots);
 robotsRouter.get("/:idRobot", getRobotById);
 robotsRouter.delete("/delete/:idRobot", auth, deleteRobotById);
-robotsRouter.post("/create/", auth, createRobot);
+robotsRouter.post("/create/", createRobot);
