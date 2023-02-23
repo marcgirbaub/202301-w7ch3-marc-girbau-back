@@ -21,28 +21,28 @@ export const loginUser = async (
 ) => {
   const { username, password } = req.body;
 
-  const user = await User.findOne({ username, password });
+  try {
+    const user = await User.findOne({ username });
 
-  if (!user) {
-    const customError = new CustomError(
-      "Wrong credentials",
-      401,
-      "Wrong credentials"
-    );
+    if (!user) {
+      throw new CustomError("User not found", 401, "Wrong credentials");
+    }
 
-    next(customError);
+    if (!(await bcrypt.compare(password, user.password))) {
+      throw new CustomError("Wrong password", 401, "Wrong credentials");
+    }
 
-    return;
+    const jwtPayload: CustomJwtPayload = {
+      sub: user?._id.toString(),
+      username: user.username,
+    };
+
+    const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!);
+
+    res.status(200).json({ token });
+  } catch (error) {
+    next(error);
   }
-
-  const jwtPayload: CustomJwtPayload = {
-    sub: user?._id.toString(),
-    username: user.username,
-  };
-
-  const token = jwt.sign(jwtPayload, process.env.JWT_SECRET!);
-
-  res.status(200).json({ token });
 };
 
 export const createUser = async (
