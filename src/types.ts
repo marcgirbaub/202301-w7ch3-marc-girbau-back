@@ -23,5 +23,6 @@ export interface CustomRequest extends Request {
 }
 
 export interface CustomJwtPayload extends JwtPayload {
+  username: string;
   sub: string;
 }

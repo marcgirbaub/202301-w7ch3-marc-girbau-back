@@ -2,7 +2,7 @@ import "../../loadEnvironment.js";
 import { type NextFunction, type Request, type Response } from "express";
 import { CustomError } from "../../CustomError/CustomError.js";
 import User from "../../database/models/User.js";
-import { type UserCredentials } from "../../types";
+import { type CustomJwtPayload, type UserCredentials } from "../../types";
 import jwt from "jsonwebtoken";
 
 const loginUser = async (
@@ -30,8 +30,8 @@ const loginUser = async (
     return;
   }
 
-  const jwtPayload = {
-    sub: user?._id,
+  const jwtPayload: CustomJwtPayload = {
+    sub: user?._id.toString(),
     username: user.username,
   };
 
