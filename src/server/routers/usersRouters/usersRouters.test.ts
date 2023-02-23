@@ -5,6 +5,7 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import connectDataBase from "../../../database/connectDataBase";
 import { app } from "../../index";
 import User from "../../../database/models/User";
+import { type UserStructure } from "../../../types";
 
 let mongodbServer: MongoMemoryServer;
 
@@ -26,10 +27,11 @@ afterEach(async () => {
 
 describe("Given a POST `/users/login` endpoint", () => {
   const loginUrl = "/users/login";
-  const mockUser = {
+  const mockUser: UserStructure = {
     password: "12345678",
     username: "Marc",
     email: "marc@girbau.com",
+    avatar: "sdfsaf",
   };
 
   describe("When it receives a request with username `Marc` and password `marc1234`", () => {
@@ -54,9 +56,11 @@ describe("Given a POST `/users/login` endpoint", () => {
 
     test("Then it should response with a status 401 and and error with a message `Wrong credentials`", async () => {
       const expectedErrorMessage = "Wrong credentials";
-      const mockRomanUser = {
+      const mockRomanUser: UserStructure = {
         username: "Róman",
         password: "roman1234",
+        email: "",
+        avatar: "asdfasdfa",
       };
 
       const expectedStatus = 401;

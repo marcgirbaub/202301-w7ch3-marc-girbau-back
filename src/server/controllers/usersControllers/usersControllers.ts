@@ -50,15 +50,17 @@ export const createUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { email, password, username } = req.body;
-
   try {
+    const { email, password, username } = req.body;
+    const avatar = req.file!.originalname;
+
     const hashedpassword = await bcrypt.hash(password, 10);
 
     await User.create({
       email,
       password: hashedpassword,
       username,
+      avatar,
     });
 
     res.status(201).json({ message: "The user has been created" });
